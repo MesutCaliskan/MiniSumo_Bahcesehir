@@ -1,0 +1,46 @@
+/*
+
+Kızılötesi sensörün önüne bir cisim çıktığında mikrodenetleyicinin bir led yakmasını sağlayan program
+
+Sensör hakkında bilgi:
+  * Model No: MZ80
+  * Range: 80cm
+  
+Bu program daha sonra ana dosyanın içine dahil edilip sensörün önüne bir cisim çıktığında 
+motorların çalışmasını sağlamada kullanılabilir
+
+*/
+
+
+int val_IR = 0;
+int analogPin = 0;
+
+void setup() {
+
+  Serial.begin(9600);
+  pinMode(4, OUTPUT);
+  
+}
+
+void loop() {
+
+  delay(10);
+  val_IR = analogRead(analogPin); // sensörden gelen veriyi oku
+  Serial.println(val_IR);  // değerin ne olduğu görülmek istenirse diye serial monitor'e yazdır
+  
+  /*
+  
+  sensörün önüne bir cisim çıktığında bunu algılayabiliyoruz ancak o cismin uzaklığını tam olarak ölçemiyoruz.
+  20 cm uzakta bulunan bir cisim ile 50 cm uzakta duran bir cisim için okunan değer neredeyse aynı.
+  
+  */
+                      
+  if(val_IR < 300){                                       
+    digitalWrite(4, HIGH); // eğer sensörün önüne bir cisim çıkarsa belli bir süre led'i yakıp söndür
+    delay(5);
+    digitalWrite(4, LOW);
+    delay(5);
+  
+  }
+  
+}
