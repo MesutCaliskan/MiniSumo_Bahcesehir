@@ -1,0 +1,37 @@
+/*
+
+Reflektans sensörünün beyaz ve siyahı algılayabilmesi için yazılmış program
+
+Sensör hakkında kısa bilgi:
+  * Model No: QTR-1A
+  * Siyahı ve beyazı fark edebiliyor
+  * Dış etkenlerden çok kolay etkilenen bir sensör bu nedenle etrafına dışarıdan gelen ışığı kesecek bir kaplama yapılabilir
+  
+Şu anda sensör eğer beyaz görürse mikrodedenetleyici bir led'i yanıp söndürüyor. 
+Daha sonra bu komut "sensör beyaz görürse dohyo'ya dönme prosedürü başlasın" şeklinde yazılacak.
+
+*/
+
+int val_Ref = 0;
+
+void setup() {
+
+  Serial.begin(9600);
+  pinMode(13, OUTPUT);
+
+}
+
+void loop() {
+
+  val_Ref = analogRead(A1);  // sensörden gelen veriyi oku
+  Serial.println(val_Ref);  // gelen veriyi kullanıcının okuyabilmesi için serial monitor'e yazdır
+  if( val_Ref < 100){
+  
+    digitalWrite(13, HIGH);  // eğer sensörün gördüğü renk beyaz ise led'i yanıp söndür
+    delay(5);
+    digitalWrite(13, LOW);
+    delay(5);
+  
+  }
+
+}
