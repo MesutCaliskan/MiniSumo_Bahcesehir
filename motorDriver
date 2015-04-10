@@ -1,0 +1,50 @@
+/*
+
+Motorları sürücü ile denemek için yazılmıştır.
+
+Kullanılan sürücü:
+  * L9110
+
+Kullanılan motorlar:
+  * İki adet, 6V 350rpm, redüktörlü DC motor
+  
+Sumo robotunun bir yönde ilerleyebilmesi için motorların farklı yönlerde dönmesi gerekiyor gerekiyor. Bu nedenle programda iki motor aynı aynda farklı
+yönlerde sürüldü. 
+
+*/
+  
+
+
+const int motor1_Forward = 6;
+const int motor1_Reverse = 5;
+const int motor2_Forward = 9;
+const int motor2_Reverse = 10;
+
+byte speed = 255;  
+
+void setup(){
+
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+
+}
+
+void loop(){
+
+  digitalWrite(motor1_Reverse, speed);
+  digitalWrite(motor1_Forward, 0);
+  digitalWrite(motor2_Forward, speed);    // bu kısımda motor1 saat yönünde dönerken motor2 saat yönünün tersine dönüyor
+  digitalWrite(motor2_Reverse, 0);        // böylece robot ileri yönde hareket ediyor
+  delay(1000);
+  
+  digitalWrite(motor1_Reverse, 0);
+  digitalWrite(motor1_Forward, speed);   // bu kısımda motor1 saat yönünün tersine dönerken motor2 saat yönünde dönüyor
+  digitalWrite(motor2_Forward, 0);       // böylece robot geri yönde hareket ediyor
+  digitalWrite(motor2_Reverse, speed);
+  delay(1000);
+  
+
+}
