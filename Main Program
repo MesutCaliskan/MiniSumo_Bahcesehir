@@ -18,23 +18,17 @@ int mR = 0;
 int rL = 0;
 int rR = 0;
 
-byte speed = 255;
+int speed = 255;
 
 void setup(){
 
-  pinMode(5, OUTPUT); // sağ motor
-  pinMode(6, OUTPUT);
-  
-  pinMode(9, OUTPUT); // sol motor
-  pinMode(10, OUTPUT);
-  
   pinMode(A0, INPUT); // QTR-1A - Reflectance Sensor
   pinMode(A1, INPUT);
   
   pinMode(A2, INPUT); // mz80 - IR Sensor
   pinMode(A3, INPUT);
   pinMode(A4, INPUT);
-
+  delay(3300);
 }
 
 void loop(){
@@ -48,66 +42,67 @@ void loop(){
   
   if(rL > 300 && rR > 300){  // eğer iki sensör de siyah rengi görürse rakip robotu ara
   
-    if(mC < 200){  // merkezde bulunanan sensör rakip robotu algılarsa robot tam karşında demektir
+    if(mC < 100){  // merkezde bulunanan sensör rakip robotu algılarsa robot tam karşında demektir
     
-      digitalWrite(motor1_Reverse, 0);
-      digitalWrite(motor1_Forward, speed);
-      digitalWrite(motor2_Forward, speed);    // rakibi sahadan atmak için rakibe doğru ilerle
-      digitalWrite(motor2_Reverse, 0);
-      delay(256);
+      
+      analogWrite(motor1_Reverse, 0);
+      analogWrite(motor1_Forward, speed);
+      analogWrite(motor2_Forward, speed);    // rakibi sahadan atmak için rakibe doğru ilerle
+      analogWrite(motor2_Reverse, 0);
+      delay(400);
     }
     
-    else if(mL < 200){    // sol sensör rakibi algılarsa merkez sensör rakibi algılayana kadar sağ motoru çalıştır
+    else if(mL < 150){    // sol sensör rakibi algılarsa merkez sensör rakibi algılayana kadar sağ motoru çalıştır
     
-      digitalWrite(motor1_Reverse, 0);
-      digitalWrite(motor1_Forward, speed);
-      digitalWrite(motor2_Forward, 0);    
-      digitalWrite(motor2_Reverse, 0);
-      delay(152);
+      analogWrite(motor1_Reverse, 0);
+      analogWrite(motor1_Forward, speed);
+      analogWrite(motor2_Forward, 0);    
+      analogWrite(motor2_Reverse, 0);
+      delay(1); 
     }
     
-    else if(mR < 200){     // sağ sensör rakibi algılarsa merkez sensör rakibi algılayana kadar sol motoru çalıştır
+    else if(mR < 150){     // sağ sensör rakibi algılarsa merkez sensör rakibi algılayana kadar sol motoru çalıştır
     
-      digitalWrite(motor2_Forward, speed);    
-      digitalWrite(motor2_Reverse, 0);
-      digitalWrite(motor1_Forward, 0);    
-      digitalWrite(motor1_Reverse, 0);
-      delay(152);
+      analogWrite(motor2_Forward, speed);    
+      analogWrite(motor2_Reverse, 0);
+      analogWrite(motor1_Forward, 0);    
+      analogWrite(motor1_Reverse, 0);
+      delay(1);
     
     }
     
     else{
     
-      digitalWrite(motor1_Reverse, 0);    // hiçbir sensör rakibi algılamazsa rakibi bulmak için kendi etrafında dön
-      digitalWrite(motor1_Forward, speed);
-      digitalWrite(motor2_Forward, 0);    
-      digitalWrite(motor2_Reverse, speed);
-      delay(152);
+      analogWrite(motor1_Reverse, 150);    // hiçbir sensör rakibi algılamazsa rakibi bulmak için kendi etrafında dön
+      analogWrite(motor1_Forward, 0);
+      analogWrite(motor2_Forward, 150);    
+      analogWrite(motor2_Reverse, 0);
+      delayMicroseconds(100);
     
     }
   }
   
   else{  // eğer sensörlerden biri ve ikisi beyaz rengi görürse sahaya geri dönmeye çalış
   
-    digitalWrite(motor1_Reverse, speed);
-    digitalWrite(motor1_Forward, 0);
-    digitalWrite(motor2_Forward, 0);    
-    digitalWrite(motor2_Reverse, speed);
-    delay (256);
+    analogWrite(motor1_Reverse, speed);
+    analogWrite(motor1_Forward, 0);
+    analogWrite(motor2_Forward, 0);    
+    analogWrite(motor2_Reverse, speed);
+    delay (756);
     
-    digitalWrite(motor1_Reverse, 0);
-    digitalWrite(motor1_Forward, 0);
-    digitalWrite(motor2_Forward, 0);    
-    digitalWrite(motor2_Reverse, 0);
+    analogWrite(motor1_Reverse, 0);
+    analogWrite(motor1_Forward, 0);
+    analogWrite(motor2_Forward, 0);    
+    analogWrite(motor2_Reverse, 0);
     
-    delay(15);
+    delayMicroseconds(50);
     
-    digitalWrite(motor1_Reverse, 0);
-    digitalWrite(motor1_Forward, speed);
-    digitalWrite(motor2_Forward, 0);    
-    digitalWrite(motor2_Reverse, speed);
+    analogWrite(motor1_Reverse, 0);
+    analogWrite(motor1_Forward, speed);
+    analogWrite(motor2_Forward, 0);    
+    analogWrite(motor2_Reverse, speed);
     
-    delay (152);
+    delay (150);
   
     
   
